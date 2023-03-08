@@ -35,7 +35,7 @@
 
 ## 安装
 
-见[插件下载安装教程](../tutorial.md)
+将 `ItemHitokoto.lls.js` 扔进 BDS 插件目录即可
 
 ## 配置文件
 
