@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-syntax */
 /* global mc network Format NbtCompound NbtString NbtInt */
 // LiteLoaderScript Dev Helper
-/// <reference path="E:\Coding\bds\.vscode\LLSEDevHelper/Library/JS/Api.js" />
+/// <reference path="../HelperLib/src/index.d.ts"/>
 
 // const pluginName = 'ItemHitokoto';
 const pluginDescription = '给你手中的物品命名为一条随机一言';
