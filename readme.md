@@ -7,9 +7,9 @@
 
 ## 图片展示
 
-![1](https://raw.githubusercontent.com/lgc-LLSEDev/readme/main/ItemHitokoto/1.png)  
-![2](https://raw.githubusercontent.com/lgc-LLSEDev/readme/main/ItemHitokoto/2.png)  
-![3](https://raw.githubusercontent.com/lgc-LLSEDev/readme/main/ItemHitokoto/3.png)
+![1](https://media.githubusercontent.com/media/lgc-LLSEDev/readme/main/ItemHitokoto/1.png)  
+![2](https://media.githubusercontent.com/media/lgc-LLSEDev/readme/main/ItemHitokoto/2.png)  
+![3](https://media.githubusercontent.com/media/lgc-LLSEDev/readme/main/ItemHitokoto/3.png)
 
 ## 使用
 
