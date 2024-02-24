@@ -1,11 +1,11 @@
-/* eslint-disable no-restricted-syntax */
 /* global ll mc PermType network Format NbtCompound NbtString NbtInt ParamType */
 // LiteLoaderScript Dev Helper
 /// <reference path="../HelperLib/src/index.d.ts"/>
 
 const pluginName = 'ItemHitokoto';
 const pluginDescription = '给你手中的物品命名为一条随机一言';
-const pluginVersion = [0, 1, 1];
+/** @type {[number, number, number]} */
+const pluginVersion = [0, 1, 2];
 
 const { Red, Green, Clear, Aqua, Gray, White } = Format;
 const hitoTypes = new Map([
@@ -23,6 +23,10 @@ const hitoTypes = new Map([
   ['抖机灵', 'l'],
 ]);
 
+/**
+ * @param { { hitokoto: string, from: string, from_who: string } } hitoObj
+ * @returns {string}
+ */
 function formatHito(hitoObj) {
   const { hitokoto, from, from_who: fromWho } = hitoObj;
   return (
@@ -31,7 +35,13 @@ function formatHito(hitoObj) {
   );
 }
 
+/**
+ * @template T
+ * @param {Iterable<T>} it
+ * @returns {T[]}
+ */
 function iterToArr(it) {
+  /** @type {T[]} */
   const arr = [];
   for (const i of it) arr.push(i);
   return arr;
@@ -85,6 +95,8 @@ function iterToArr(it) {
 
       // https://www.minebbs.com/resources/customgetmap-custommap.4050/
       const nbt = it.getNbt();
+      /** @type {NbtCompound | null} */
+      // @ts-expect-error type cast
       let tag = nbt.getTag('tag');
       if (!tag) tag = new NbtCompound();
 
@@ -92,6 +104,8 @@ function iterToArr(it) {
 
       const hito = formatHito(ret);
       const nameNbt = new NbtString(hito);
+      /** @type {NbtCompound | null} */
+      // @ts-expect-error type cast
       const display = tag.getTag('display');
       if (!display) {
         tag.setTag(

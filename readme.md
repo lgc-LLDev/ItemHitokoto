@@ -35,7 +35,9 @@
 
 ## 安装
 
-将 `ItemHitokoto.lls.js` 扔进 BDS 插件目录即可
+```shell
+lip install github.com/lgc-LLDev/ItemHitokoto
+```
 
 ## 配置文件
 
@@ -71,6 +73,7 @@ QQ：3076823485
 
 ## 更新日志
 
-- 1.0.1
-  - 增加指令别名`ithito`
-  - 增加旧版 lxl 支持
+### 1.0.1
+
+- 增加指令别名`ithito`
+- 增加旧版 lxl 支持

@@ -1,20 +1,24 @@
 {
-  "format_version": 1,
-  "tooth": "github.com/lgc-LLSEDev/ItemHitokoto",
-  "version": "0.1.1",
-  "dependencies": {},
-  "information": {
+  "$schema": "https://raw.githubusercontent.com/lippkg/lip/main/schemas/tooth.v2.schema.json",
+  "format_version": 2,
+  "tooth": "github.com/lgc-LLDev/ItemHitokoto",
+  "version": "0.1.2",
+  "info": {
     "name": "ItemHitokoto",
-    "description": "将一条「一言」命名到你喜欢的物品上吧！",
-    "author": "lgc2333",
-    "license": "Apache-2.0",
-    "homepage": "https://github.com/lgc-LLSEDev/ItemHitokoto"
+    "description": "Name your favorite items with a \"hitokoto\"!",
+    "author": "student_2333",
+    "tags": ["plugin", "lse", "quickjs", "hitokoto"]
   },
-  "placement": [
-    {
-      "source": "ItemHitokoto.lls.js",
-      "destination": "plugins/ItemHitokoto.js"
-    }
-  ],
-  "possession": []
+  "files": {
+    "place": [
+      {
+        "src": "ItemHitokoto.js",
+        "dest": "plugins/ItemHitokoto/ItemHitokoto.js"
+      },
+      {
+        "src": "manifest.json",
+        "dest": "plugins/ItemHitokoto/manifest.json"
+      }
+    ]
+  }
 }
