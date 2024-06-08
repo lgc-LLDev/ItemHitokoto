@@ -1,6 +1,6 @@
 {
-  "entry": "NavigationAPI.js",
-  "name": "NavigationAPI",
+  "entry": "ItemHitokoto.js",
+  "name": "ItemHitokoto",
   "type": "lse-quickjs",
   "dependencies": [
     {
