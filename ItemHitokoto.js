@@ -2,12 +2,12 @@
 // LiteLoaderScript Dev Helper
 /// <reference path="../HelperLib/src/index.d.ts"/>
 
-const pluginName = 'ItemHitokoto';
-const pluginDescription = '给你手中的物品命名为一条随机一言';
+const pluginName = 'ItemHitokoto'
+const pluginDescription = '给你手中的物品命名为一条随机一言'
 /** @type {[number, number, number]} */
-const pluginVersion = [0, 1, 2];
+const pluginVersion = [0, 1, 2]
 
-const { Red, Green, Clear, Aqua, Gray, White } = Format;
+const { Red, Green, Clear, Aqua, Gray, White } = Format
 const hitoTypes = new Map([
   ['动画', 'a'],
   ['漫画', 'b'],
@@ -21,18 +21,18 @@ const hitoTypes = new Map([
   ['网易云', 'j'],
   ['哲学', 'k'],
   ['抖机灵', 'l'],
-]);
+])
 
 /**
  * @param { { hitokoto: string, from: string, from_who: string } } hitoObj
  * @returns {string}
  */
 function formatHito(hitoObj) {
-  const { hitokoto, from, from_who: fromWho } = hitoObj;
+  const { hitokoto, from, from_who: fromWho } = hitoObj
   return (
     `${Clear}${White}『${Aqua}${hitokoto}${White}』\n` +
     `${Gray}—— ${fromWho ? `${fromWho} ` : ''}「${from}」`
-  );
+  )
 }
 
 /**
@@ -42,96 +42,96 @@ function formatHito(hitoObj) {
  */
 function iterToArr(it) {
   /** @type {T[]} */
-  const arr = [];
-  for (const i of it) arr.push(i);
-  return arr;
+  const arr = []
+  for (const i of it) arr.push(i)
+  return arr
 }
 
-(() => {
-  const cmd = mc.newCommand('itemhitokoto', pluginDescription, PermType.Any);
-  cmd.setAlias('ithito');
-  cmd.optional('type', ParamType.RawText);
-  cmd.overload(['type']);
+;(() => {
+  const cmd = mc.newCommand('itemhitokoto', pluginDescription, PermType.Any)
+  cmd.setAlias('ithito')
+  cmd.optional('type', ParamType.RawText)
+  cmd.overload(['type'])
   cmd.setCallback((_, origin, output, result) => {
-    const { player: pl } = origin;
+    const { player: pl } = origin
     if (!pl) {
-      output.error('非玩家无法执行');
-      return false;
+      output.error('非玩家无法执行')
+      return false
     }
 
-    const it = pl.getHand();
+    const it = pl.getHand()
     if (it.isNull()) {
-      output.error('请手持一件物品');
-      return false;
+      output.error('请手持一件物品')
+      return false
     }
 
-    const { type } = result;
-    let typeChar = hitoTypes.get(type);
+    const { type } = result
+    let typeChar = hitoTypes.get(type)
     if (type && !typeChar) {
       if (!iterToArr(hitoTypes.values()).includes(type)) {
         output.error(
           `错误的一言类型！\n` +
-            `类型列表： ${iterToArr(hitoTypes.keys()).join('； ')}`
-        );
-        return false;
+            `类型列表： ${iterToArr(hitoTypes.keys()).join('； ')}`,
+        )
+        return false
       }
-      typeChar = type;
+      typeChar = type
     }
-    typeChar = typeChar || '';
+    typeChar = typeChar || ''
 
     network.httpGet(`https://v1.hitokoto.cn/?c=${typeChar}`, (code, res) => {
       if (!(code === 200)) {
-        pl.tell(`${Red}请求一言接口失败：返回状态非200`);
-        return;
+        pl.tell(`${Red}请求一言接口失败：返回状态非200`)
+        return
       }
 
-      let ret;
+      let ret
       try {
-        ret = JSON.parse(res);
+        ret = JSON.parse(res)
       } catch {
-        pl.tell(`${Red}请求一言接口失败：返回值解析错误`);
-        return;
+        pl.tell(`${Red}请求一言接口失败：返回值解析错误`)
+        return
       }
 
       // https://www.minebbs.com/resources/customgetmap-custommap.4050/
-      const nbt = it.getNbt();
+      const nbt = it.getNbt()
       /** @type {NbtCompound | null} */
       // @ts-expect-error type cast
-      let tag = nbt.getTag('tag');
-      if (!tag) tag = new NbtCompound();
+      let tag = nbt.getTag('tag')
+      if (!tag) tag = new NbtCompound()
 
-      if (!tag.getTag('RepairCost')) tag.setTag('RepairCost', new NbtInt(0));
+      if (!tag.getTag('RepairCost')) tag.setTag('RepairCost', new NbtInt(0))
 
-      const hito = formatHito(ret);
-      const nameNbt = new NbtString(hito);
+      const hito = formatHito(ret)
+      const nameNbt = new NbtString(hito)
       /** @type {NbtCompound | null} */
       // @ts-expect-error type cast
-      const display = tag.getTag('display');
+      const display = tag.getTag('display')
       if (!display) {
         tag.setTag(
           'display',
           new NbtCompound({
             Name: nameNbt,
-          })
-        );
+          }),
+        )
       } else {
-        display.setTag('Name', nameNbt);
-        tag.setTag('display', display);
+        display.setTag('Name', nameNbt)
+        tag.setTag('display', display)
       }
 
-      nbt.setTag('tag', tag);
+      nbt.setTag('tag', tag)
 
-      it.setNbt(nbt);
-      pl.refreshItems();
+      it.setNbt(nbt)
+      pl.refreshItems()
 
-      pl.tell(`${Green}成功！\n${hito}`);
-    });
-    return true;
-  });
-  cmd.setup();
-})();
+      pl.tell(`${Green}成功！\n${hito}`)
+    })
+    return true
+  })
+  cmd.setup()
+})()
 
 ll.registerPlugin(pluginName, pluginDescription, pluginVersion, {
   Author: 'student_2333',
   License: 'Apache-2.0',
-});
+})
